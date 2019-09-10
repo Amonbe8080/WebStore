@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="pane" fx:id="apReg" prefHeight="497.0" prefWidth="885.0" stylesheets="@../Assets/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simplelogin.RegistroUsuarioController">
+   <children>
+      <AnchorPane layoutX="-7.0" prefHeight="538.0" prefWidth="451.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXTextField fx:id="txtapellido" focusColor="#fc8d0f" labelFloat="true" layoutX="160.0" layoutY="203.0" unFocusColor="#fc8d0f">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </JFXTextField>
+            <JFXComboBox fx:id="cmbgene" focusColor="#fc8d0f" labelFloat="true" layoutX="159.0" layoutY="252.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="135.0" unFocusColor="#fc8d0f">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXComboBox>
+            <JFXTextField fx:id="txtusu" focusColor="#fc8d0f" labelFloat="true" layoutX="159.0" layoutY="302.0" unFocusColor="#fc8d0f">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </JFXTextField>
+            <JFXPasswordField fx:id="txtpass" focusColor="#fc8d0f" labelFloat="true" layoutX="160.0" layoutY="356.0" unFocusColor="#fc8d0f">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </JFXPasswordField>
+            <Label layoutX="96.0" layoutY="306.0" text="Usuario:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="93.0" layoutY="155.0" text="Nombre:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="87.0" layoutY="205.0" text="Apellidos:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="96.0" layoutY="252.0" text="Género:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="355.0" text="Contraseña:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txtname" focusColor="#fc8d0f" labelFloat="true" layoutX="161.0" layoutY="154.0" unFocusColor="#fc8d0f">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </JFXTextField>
+            <Label layoutX="70.0" layoutY="107.0" text="Documento:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="idUsuario" cacheShape="false" centerShape="false" focusColor="#fc8d0f" focusTraversable="false" layoutX="162.0" layoutY="105.0" unFocusColor="#fc8d0f">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </JFXTextField>
+            <JFXButton layoutX="287.0" layoutY="429.0" onAction="#registrar" prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #fc8d0f;" text="Registrarme" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Hyperlink layoutX="48.0" layoutY="436.0" onAction="#irLogin" text="&lt;&lt; Ya tengo una cuenta" textFill="#030303" />
+            <Label fx:id="error" layoutX="47.0" layoutY="391.0" prefHeight="26.0" prefWidth="368.0" textFill="#ff2600">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="97.0" layoutY="14.0" prefHeight="49.0" prefWidth="338.0" text="Forma Parte de Nosotros">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="86.0" fitWidth="96.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/Img/JwSO4Uk.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="100.0" layoutY="57.0" text="Comienza a crear y transformar tu mundo." textFill="#fc8d0f">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Text fill="WHITE" layoutX="477.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generando innovación.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Label layoutX="477.0" layoutY="23.0" text="Explora nuevas características ." textFill="#fc8d0f">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Text fill="WHITE" layoutX="464.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cra. 43B No. 11-71Medellín – Colombia+57 (4) 444 88 00" textAlignment="CENTER" wrappingWidth="107.0" />
+      <Label layoutX="458.0" layoutY="383.0" text="Encuéntranos en:" textFill="#fc8d0f">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="763.0" layoutY="414.0" text="Contactanos en:" textFill="#fc8d0f">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="769.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/Img/in.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="666.0" layoutY="173.0" text="Perceptio" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

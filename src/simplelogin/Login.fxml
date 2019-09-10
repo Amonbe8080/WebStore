@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="pane" fx:id="ap" prefHeight="469.0" prefWidth="665.0" snapToPixel="false" stylesheets="@../Assets/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simplelogin.LoginController">
+   <children>
+      <ImageView fitHeight="85.0" fitWidth="107.0" layoutX="419.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/Img/mon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="80.0" fitWidth="122.0" layoutX="279.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/Img/lock.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="287.0" layoutY="17.0" text="Explora nuevas características ." textFill="#fc8d0f">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="70.0" fitWidth="71.0" layoutX="20.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/Img/favicon.ico" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="287.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Te ofrecemos una de las mejores características en seguridad, esta característica te permite tener un doble factor de verificación." textAlignment="CENTER" wrappingWidth="107.0" />
+      <Text fill="WHITE" layoutX="419.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No te pierdas de ningún momento de tu vida, esta característica te permite controlar de manera remota tu monitor." textAlignment="CENTER" wrappingWidth="107.0" />
+      <Text fill="WHITE" layoutX="290.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generando innovación.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Separator layoutX="256.0" orientation="VERTICAL" prefHeight="477.0" prefWidth="14.0" valignment="BOTTOM" />
+      <Hyperlink layoutX="284.0" layoutY="399.0" prefHeight="34.0" prefWidth="34.0" />
+      <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="286.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/Img/in.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="277.0" layoutY="370.0" text="Contactanos en:" textFill="#fc8d0f">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="440.0" layoutY="370.0" text="Encuéntranos en:" textFill="#fc8d0f">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Text fill="WHITE" layoutX="447.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cra. 43B No. 11-71Medellín – Colombia+57 (4) 444 88 00" textAlignment="CENTER" wrappingWidth="107.0" />
+      <AnchorPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="477.0" prefWidth="265.0" snapToPixel="false" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="13.0" layoutY="200.0" text="Contraseña:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField id="field" fx:id="usuario" focusColor="#fc8d0f" layoutX="96.0" layoutY="155.0" styleClass="text-muted" unFocusColor="#fc8d0f" />
+            <JFXPasswordField id="field" fx:id="password" focusColor="#fc8d0f" layoutX="96.0" layoutY="200.0" styleClass="text-light" unFocusColor="#fc8d0f" />
+            <JFXButton fx:id="iniciar" layoutX="71.0" layoutY="281.0" onAction="#iniciarSesion" prefHeight="40.0" prefWidth="114.0" style="-fx-background-color: #fc8d0f;" text="Iniciar" textFill="WHITE" />
+            <Label layoutX="59.0" layoutY="367.0" text="¿Aún no estas registrado?" />
+            <Hyperlink layoutX="96.0" layoutY="384.0" onAction="#registro" text="Regístrate" textFill="#fc8d0f" />
+            <ImageView fitHeight="47.0" fitWidth="61.0" layoutX="31.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Img/JwSO4Uk.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="74.0" layoutY="18.0" text="Perceptio" textFill="#fc8d0f">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="38.0" layoutY="155.0" text="Usuario:" textFill="#fc8d0f">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Text layoutX="50.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio de Sesión">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Label fx:id="error" layoutX="38.0" layoutY="239.0" prefHeight="27.0" prefWidth="201.0" textFill="#ff2600">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
