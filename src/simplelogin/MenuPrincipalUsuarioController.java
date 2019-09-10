@@ -1,11 +1,17 @@
 
 package simplelogin;
 
+import Modelo.Conexion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,11 +26,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 
 public class MenuPrincipalUsuarioController implements Initializable {
+    
+// SESION DE USUARIO
     //Fields
     @FXML private JFXTextField idUsuario;
     @FXML private JFXComboBox tipo;
@@ -68,6 +79,12 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     //Resulset
     private ResultSet recibido;
+// FIN SESION USUARIO
+    
+// COMIENZO SESION PRODUCTOS
+    @FXML private Button btncargarImagen;
+    
+    @FXML ImageView img;
     
     @FXML public static AnchorPane mp;
     
@@ -158,6 +175,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
             mensaje.setHeaderText("Usuario modificado con exito.");
             mensaje.show();
             modUser = null;
+//            img.setImage(value);
         }else{
             mensaje.setText(modUser.getError());
             modUser = null;
@@ -307,9 +325,49 @@ public class MenuPrincipalUsuarioController implements Initializable {
         gestionarEventos();
         tblUser.setItems(user);
     }
+    
+    public void cargarImagen() throws FileNotFoundException, SQLException{
+        try {
+            
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Buscar Imagen");
 
-    public void initData(Stage stage) {
-        stage.close();    
+            // Agregar filtros para facilitar la busqueda
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("All Images", "*.*"),
+                    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG", "*.png")
+            );
+            
+            File imgFile = fileChooser.showOpenDialog(null);
+
+            
+            if (imgFile != null) {
+            Image image = new Image("file:" + imgFile.getAbsolutePath());
+            img.setImage(image);
+        }
+
+            Conexion objCon = new Conexion();
+            String updateSQL ="UPDATE productos "
+                            + "SET ImageProd = ? "
+                            + "WHERE idProductos=?";
+            
+            FileInputStream input = new FileInputStream(imgFile);
+
+            PreparedStatement ps = objCon.getConnection().prepareStatement(updateSQL);
+            // set parameters
+            ps.setBlob(1, input);
+
+            ps.setInt(2, 238123);
+
+            ps.execute();
+
+            System.out.println("Hecho");
+        
+        } catch (FileNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+ 
     }
     
 }
