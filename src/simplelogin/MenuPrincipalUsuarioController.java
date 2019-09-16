@@ -176,9 +176,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
         TCEstaProd.setCellValueFactory(new PropertyValueFactory<>("EstaProd"));
 
         recargarTablaProductos();
-        recargarTabla();
-        
-        
+        recargarTabla(); 
     }
 
     //<editor-fold defaultstate="collapsed" desc="Metodos de Usuario">    
