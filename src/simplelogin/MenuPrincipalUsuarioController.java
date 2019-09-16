@@ -4,6 +4,7 @@ package simplelogin;
 import Modelo.Conexion;
 import Modelo.Producto;
 import Modelo.Usuario;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
@@ -14,7 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +31,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import sun.security.util.Length;
 
 
 public class MenuPrincipalUsuarioController implements Initializable {
@@ -46,13 +45,13 @@ public class MenuPrincipalUsuarioController implements Initializable {
     @FXML private JFXComboBox estado;
     @FXML private JFXTextField nick;
     @FXML private JFXTextField pass;
-    
-    
+       
     //Botones usuario
     @FXML private Button btnEliminar;
     @FXML private Button btnModificar;
     @FXML private Button btnAgregar;
     @FXML private Button btnConsultar;
+    @FXML private JFXButton refreshUsuario;
     
     //Label error
     @FXML private Label mensaje;
@@ -110,6 +109,8 @@ public class MenuPrincipalUsuarioController implements Initializable {
     @FXML private Button btnAgregarProducto;
     @FXML private Button btnConsultarProducto;
     
+    @FXML private JFXButton refreshTBProductos;
+    
     // ObservableList TipoProductos
     @FXML private ObservableList tipoProducto;
     
@@ -123,6 +124,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     @FXML ImageView img;
     @FXML public static AnchorPane mp;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -175,13 +177,13 @@ public class MenuPrincipalUsuarioController implements Initializable {
         TCCantProd.setCellValueFactory(new PropertyValueFactory<>("CantProd"));
         TCEstaProd.setCellValueFactory(new PropertyValueFactory<>("EstaProd"));
 
-        recargarTablaProductos();
+        recargarTablaProductos();   
         recargarTabla(); 
     }
 
     //<editor-fold defaultstate="collapsed" desc="Metodos de Usuario">    
     private void gestionarEventos() {
-            tblUser.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Usuario> arg0, Usuario valorAnterior, Usuario newValue) -> {               
+           tblUser.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Usuario> arg0, Usuario valorAnterior, Usuario newValue) -> {               
                 idUsuario.setText(Float.toString(newValue.getIdUsuario()));
                 tipo.setValue(newValue.getIdTipoUsua());
                 nombre.setText(newValue.getNombUsua());
@@ -196,11 +198,14 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 btnModificar.setDisable(false);
                 btnConsultar.setDisable(true);
                 
+                refreshUsuario.setVisible(false);
                 nick.setDisable(true);
                 pass.setDisable(true);
-            });        
-        }
-           
+            });   
+            
+            
+    }
+   
     public void modificarUsuario(){
         try {
             
@@ -309,11 +314,11 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     public void nuevo(){
         idUsuario.setText(null);
-        tipo.setValue(1);
+        tipo.setValue(0);
         nombre.setText(null);
         apellidos.setText(null);
         genero.setValue(null);
-        estado.setValue("Activo");
+        estado.setValue("");
         nick.setText(null);
         pass.setText(null);
         
@@ -324,11 +329,9 @@ public class MenuPrincipalUsuarioController implements Initializable {
         
         nick.setDisable(false);
         pass.setDisable(false);
-
-//        Alert mensaje = new Alert(AlertType.WARNING);
-//        mensaje.setTitle("Registro actualizado");
-//        mensaje.setHeaderText("El registro ha sido actualizado exitosamente");
-//        mensaje.show();
+        
+        refreshUsuario.setVisible(true);
+        tblUser.getSelectionModel().clearSelection();
     }
     
     public void consultar(){
@@ -364,13 +367,12 @@ public class MenuPrincipalUsuarioController implements Initializable {
 
     }
     
-    public void recargarTabla(){
+    public void recargarTabla(){    
         user.removeAll(user);
         
         Usuario us = new Usuario();
         us.listarUsuario(user);
-            
-        gestionarEventos();
+          
         tblUser.setItems(user);
     }
     //</editor-fold>
@@ -379,7 +381,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
     public void modificarProducto(){
         try {
             int idProd = Integer.parseInt(TFidProducto.getText());
-            String tipoProd = CBidTipoProd.getValue().toString();
+            String tipoProd =  CBidTipoProd.getValue().toString();
             String nombProd = TFnomProd.getText();
             double valorComp = Double.parseDouble(TFValorComp.getText());
             double valorVenta = Double.parseDouble(TFValorVenta.getText());
@@ -388,6 +390,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
             Producto objProd = new Producto(idProd, tipoProd, nombProd, valorComp, valorVenta, cantidad, estado);
             
             if (objProd.crudProducto("modificar")) {
+                tblProducto.getSelectionModel().clearSelection();
                 recargarTabla();
                 Alert mensaje = new Alert(AlertType.INFORMATION);
                 mensaje.setTitle("Realizado.");
@@ -404,7 +407,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
             
         } catch (Exception e) {
             Alert mensaje = new Alert(AlertType.WARNING);
-            mensaje.setTitle(e.getMessage().toString());
+            mensaje.setTitle(e.getMessage());
             mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
             mensaje.show();
         }
@@ -422,7 +425,8 @@ public class MenuPrincipalUsuarioController implements Initializable {
             Producto objProd = new Producto(idProd, tipoProd, nombProd, valorComp, valorVenta, cantidad, estado);
             
             if (objProd.crudProducto("eliminar")) {
-               recargarTabla();
+                tblProducto.getSelectionModel().clearSelection();
+                recargarTabla();
                 Alert msjPos = new Alert(AlertType.INFORMATION);
                 msjPos.setTitle("Realizado.");
                 msjPos.setHeaderText("Producto eliminado con exito.");
@@ -436,7 +440,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 objProd = null;
         }} catch (Exception e) {
             Alert mensaje = new Alert(AlertType.WARNING);
-            mensaje.setTitle(e.getMessage().toString());
+            mensaje.setTitle(e.getMessage());
             mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
             mensaje.show();
         }   
@@ -454,7 +458,8 @@ public class MenuPrincipalUsuarioController implements Initializable {
             Producto objProd = new Producto(idProd, tipoProd, nombProd, valorComp, valorVenta, cantidad, estado);
             
             if (objProd.crudProducto("guardar")) {
-               recargarTabla();
+                tblProducto.getSelectionModel().clearSelection();
+                recargarTabla();
                 Alert msjPos = new Alert(AlertType.INFORMATION);
                 msjPos.setTitle("Realizado.");
                 msjPos.setHeaderText("Producto agregado con exito.");
@@ -469,7 +474,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
         } 
         } catch (Exception e) {
             Alert mensaje = new Alert(AlertType.WARNING);
-            mensaje.setTitle(e.getMessage().toString());
+            mensaje.setTitle(e.getMessage());
             mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
             mensaje.show();
         }
@@ -481,10 +486,11 @@ public class MenuPrincipalUsuarioController implements Initializable {
             if (conPro.consultarProducto(Integer.parseInt(TFidProducto.getText().trim()))) {
                 ResultSet rs = conPro.getRsProducto();
                 if(rs.next()) {    
+                    CBidTipoProd.setValue(rs.getString("Categoria"));
                     TFnomProd.setText(rs.getString("NombProd"));
                     TFValorComp.setText(rs.getString("ValorComp"));
-                    TFValorVenta.setText(rs.getString("ValorVenta"));
-                    TFCantProd.setText(rs.getString("CantProd"));
+                    TFValorVenta.setText(String.valueOf(rs.getFloat("ValorVent")));
+                    TFCantProd.setText(String.valueOf(rs.getFloat("CantProd")));
                     CBEstaProd.setValue(rs.getString("EstaProd"));
                 }else{
                    Alert mensaje = new Alert(AlertType.WARNING);
@@ -493,13 +499,17 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 }            
             } 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Alert mensaje = new Alert(AlertType.WARNING);
+            mensaje.setTitle(e.getMessage());
+            mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
+            mensaje.show();
         }
     }
     
     private void TBProductos() {
-        try {
-            tblProducto.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Producto> arg0, Producto valorAnterior, Producto newValue) -> {               
+        // Error: Cuando se recarga la tabla, se intenta buscar un valor seleccionado.
+        // Al no haber nada selecionado se lanza error.  
+           tblProducto.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Producto> arg0, Producto valorAnterior, Producto newValue) -> { 
                 TFidProducto.setText(Integer.toString(newValue.getIdProductos()));
                 CBidTipoProd.setValue(newValue.getCategoria());
                 TFnomProd.setText(newValue.getNombProd());
@@ -512,13 +522,10 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 btnEliminarProducto.setDisable(false);
                 btnModificarProducto.setDisable(false);
                 btnConsultarProducto.setDisable(true);
-            });
-        } catch (Exception e) {
-            Alert msj = new Alert(AlertType.WARNING);
-            msj.setTitle(e.getMessage());
-            msj.setHeaderText("Error al cargar TableView.");
-            msj.show();
-        }           
+                
+                refreshTBProductos.setVisible(false);
+            });   
+        
     }
     
     public void nuevoProducto(){
@@ -528,20 +535,22 @@ public class MenuPrincipalUsuarioController implements Initializable {
         TFValorComp.setText("");
         TFValorVenta.setText("");
         TFCantProd.setText("");
-        CBEstaProd.setValue(null);
+        CBEstaProd.setValue("");
+        
+        btnConsultarProducto.setDisable(false);
+        refreshTBProductos.setVisible(true);
    }
     
     public void recargarTablaProductos(){
+        tblProducto.getSelectionModel().clearSelection();
         test.removeAll(test);
         
         Producto pro = new Producto();
         pro.listarProductos(test);
-            
-        
+
+        TBProductos();
         
         tblProducto.setItems(test);
-        
-        TBProductos();
     }
     //</editor-fold>
     
@@ -587,6 +596,5 @@ public class MenuPrincipalUsuarioController implements Initializable {
             System.out.println(ex.getMessage());
         }
  
-    }
-    
+    }   
 }

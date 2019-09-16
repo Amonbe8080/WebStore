@@ -69,7 +69,7 @@
                            </font>
                         </Label>
                         <JFXTextField fx:id="pass" disable="true" layoutX="802.0" layoutY="369.0" />
-                        <JFXButton layoutX="691.0" layoutY="2.0" onAction="#recargarTabla" text="🔂" />
+                        <JFXButton fx:id="refreshUsuario" layoutX="691.0" layoutY="2.0" onAction="#recargarTabla" text="🔂" />
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -111,7 +111,7 @@
                         <Button fx:id="btnAgregarProducto" layoutX="837.0" layoutY="387.0" mnemonicParsing="false" onAction="#agregarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
                         <Button layoutX="770.0" layoutY="387.0" mnemonicParsing="false" onAction="#nuevoProducto" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
                         <Button fx:id="btnConsultarProducto" layoutX="994.0" layoutY="69.0" mnemonicParsing="false" onAction="#consultarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Consultar" textFill="WHITE" />
-                        <JFXButton layoutX="744.0" layoutY="1.0" onAction="#recargarTablaProductos" text="Refresh" />
+                        <JFXButton fx:id="refreshTBProductos" layoutX="744.0" layoutY="1.0" onAction="#recargarTablaProductos" text="Refresh" visible="false" />
                         <JFXComboBox fx:id="CBEstaProd" layoutX="852.0" layoutY="332.0" prefHeight="25.0" prefWidth="138.0" />
                      </children></AnchorPane>
               </content>

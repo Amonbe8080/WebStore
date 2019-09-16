@@ -1,4 +1,3 @@
-
 package Modelo;
 
 import java.awt.Dimension;
@@ -145,22 +144,21 @@ public class Producto extends javax.swing.JPanel{
         super.paintComponent(grafico);
    }
 
-    public boolean crudProducto(String tipoAEjecutar){
+    public boolean crudProducto(String tipoAEjecutar) {
         Conexion con = new Conexion();
-        try {   
-            con.consultaDirecta("SELECT IdTipoProd FROM productos WHERE NoTiProd ="+getCategoria()+"");
-            setIdTipoProd(con.Reader.getInt("IdTipoProd"));
-        } catch (Exception e) {
-            System.out.println("Error al inicializar el IdTipoProd "+e.getMessage());
-        }
-        String nameusp = "call CrudProducto( "+getIdProductos()+","
-                                              +getIdTipoProd()+",'"
-                                              +getNombProd()+"', "
-                                              +getValorComp()+","
-                                              +getValorVent()+","
-                                              +getCantProd()+",'"
-                                              +getEstaProd()+"','"
-                                              +tipoAEjecutar+"' )";
+        try {
+            con.consultaDirecta("SELECT idTipoProd FROM tipoprod WHERE NoTiProd = '"+getCategoria()+"'");
+            if (con.Reader.next()) {
+                setIdTipoProd(con.Reader.getInt(1));
+            }
+            String nameusp = "call CrudProducto( "+getIdProductos()+","
+                                                  +getIdTipoProd()+",'"
+                                                  +getNombProd()+"', "
+                                                  +getValorComp()+","
+                                                  +getValorVent()+","
+                                                  +getCantProd()+",'"
+                                                  +getEstaProd()+"','"
+                                                  +tipoAEjecutar+"' )";
         if (con.ejecutarSentencia(nameusp)) {
             con.cerrarConexion();
             return true;
@@ -169,6 +167,13 @@ public class Producto extends javax.swing.JPanel{
             con.cerrarConexion();
             return false;
         }
+        
+        } catch (SQLException e) {
+            error = e.getMessage();
+            System.out.println(e.getMessage());
+        }
+        
+        return true;
     }
     
     public void listarProductos(ObservableList<Producto> pro){
