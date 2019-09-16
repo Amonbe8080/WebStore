@@ -26,7 +26,7 @@
               <content>
                 <AnchorPane>
                      <children>
-                        <TableView fx:id="tblUser" layoutX="-2.0" prefHeight="464.0" prefWidth="693.0">
+                        <TableView fx:id="tblUser" layoutX="-2.0" prefHeight="462.0" prefWidth="693.0">
                            <columns>
                               <TableColumn fx:id="clmiId" prefWidth="98.0" text="IdUsuario" />
                               <TableColumn fx:id="clmTipo" prefWidth="35.0" text="Tipo" />
@@ -50,7 +50,7 @@
                         </Label>
                         <Label layoutX="735.0" layoutY="58.0" text="Id Usuario:" />
                         <Label layoutX="771.0" layoutY="335.0" text="Nick:" />
-                        <JFXTextField fx:id="idUsuario" layoutX="802.0" layoutY="54.0" />
+                        <JFXTextField fx:id="idUsuario" cacheShape="false" centerShape="false" layoutX="802.0" layoutY="54.0" pickOnBounds="false" scaleShape="false" snapToPixel="false" />
                         <JFXComboBox fx:id="tipo" layoutX="802.0" layoutY="101.0" />
                         <JFXTextField fx:id="nombre" layoutX="802.0" layoutY="142.0" />
                         <JFXTextField fx:id="apellidos" layoutX="802.0" layoutY="189.0" />
@@ -58,10 +58,10 @@
                         <JFXComboBox fx:id="estado" layoutX="806.0" layoutY="287.0" prefHeight="25.0" prefWidth="89.0" />
                         <JFXTextField fx:id="nick" disable="true" layoutX="802.0" layoutY="331.0" />
                         <Label layoutX="767.0" layoutY="378.0" text="Clave:" />
-                        <Button layoutX="963.0" layoutY="413.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
-                        <Button fx:id="btnEliminar" disable="true" layoutX="744.0" layoutY="413.0" mnemonicParsing="false" onAction="#eliminarUsuario" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
-                        <Button fx:id="btnModificar" disable="true" layoutX="813.0" layoutY="413.0" mnemonicParsing="false" onAction="#modificarUsuario" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
-                        <Button fx:id="btnAgregar" layoutX="895.0" layoutY="413.0" mnemonicParsing="false" onAction="#agregarUsuario" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
+                        <Button layoutX="820.0" layoutY="413.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
+                        <Button fx:id="btnEliminar" disable="true" layoutX="895.0" layoutY="413.0" mnemonicParsing="false" onAction="#eliminarUsuario" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
+                        <Button fx:id="btnModificar" disable="true" layoutX="964.0" layoutY="413.0" mnemonicParsing="false" onAction="#modificarUsuario" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
+                        <Button fx:id="btnAgregar" layoutX="749.0" layoutY="413.0" mnemonicParsing="false" onAction="#agregarUsuario" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
                         <Button fx:id="btnConsultar" layoutX="948.0" layoutY="54.0" mnemonicParsing="false" onAction="#consultar" style="-fx-background-color: rgb(28, 162, 96);" text="Consultar" textFill="WHITE" />
                         <Label fx:id="mensaje" layoutX="728.0" layoutY="26.0" prefHeight="32.0" prefWidth="302.0">
                            <font>
@@ -75,7 +75,45 @@
             </Tab>
             <Tab text="Productos">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="873.0" layoutY="14.0" text="Producto">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="787.0" layoutY="73.0" text="Id Producto:" />
+                        <Label layoutX="824.0" layoutY="110.0" text="Tipo:" />
+                        <Label layoutX="804.0" layoutY="152.0" text="Nombre:" />
+                        <Label layoutX="759.0" layoutY="196.0" text="Valor de Compra:" />
+                        <Label layoutX="771.0" layoutY="243.0" text="Valor de Venta:" />
+                        <Label layoutX="799.0" layoutY="289.0" text="Cantidad:" />
+                        <Label layoutX="808.0" layoutY="336.0" text="Estado:" />
+                        <TableView fx:id="tblProducto" prefHeight="467.0" prefWidth="744.0">
+                          <columns>
+                            <TableColumn fx:id="TCidProductos" prefWidth="83.0" text="Id" />
+                            <TableColumn fx:id="TCidTipoProd" prefWidth="118.0" text="Tipo" />
+                              <TableColumn fx:id="TCNombProd" prefWidth="175.0" text="Nombre" />
+                              <TableColumn fx:id="TCValorComp" minWidth="9.0" prefWidth="92.0" text="Valor Compra" />
+                              <TableColumn fx:id="TCValorVent" prefWidth="106.0" text="Valor Venta" />
+                              <TableColumn fx:id="TCCantProd" prefWidth="62.0" text="Cantidad" />
+                              <TableColumn fx:id="TCEstaProd" prefWidth="107.0" text="Estado" />
+                          </columns>
+                        </TableView>
+                        <JFXTextField fx:id="TFidProducto" layoutX="853.0" layoutY="69.0" />
+                        <JFXComboBox fx:id="CBidTipoProd" layoutX="853.0" layoutY="103.0" prefHeight="25.0" prefWidth="128.0" />
+                        <JFXTextField fx:id="TFnomProd" layoutX="853.0" layoutY="148.0" />
+                        <JFXTextField fx:id="TFValorComp" layoutX="853.0" layoutY="192.0" prefHeight="25.0" prefWidth="70.0" />
+                        <JFXTextField fx:id="TFValorVenta" layoutX="853.0" layoutY="239.0" prefHeight="25.0" prefWidth="71.0" />
+                        <JFXTextField fx:id="TFCantProd" layoutX="853.0" layoutY="285.0" prefHeight="25.0" prefWidth="73.0" />
+                        <Button fx:id="btnEliminarProducto" disable="true" layoutX="990.0" layoutY="387.0" mnemonicParsing="false" onAction="#eliminarProducto" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
+                        <Button fx:id="btnModificarProducto" disable="true" layoutX="910.0" layoutY="387.0" mnemonicParsing="false" onAction="#modificarProducto" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
+                        <Button fx:id="btnAgregarProducto" layoutX="837.0" layoutY="387.0" mnemonicParsing="false" onAction="#agregarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
+                        <Button layoutX="770.0" layoutY="387.0" mnemonicParsing="false" onAction="#nuevoProducto" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
+                        <Button fx:id="btnConsultarProducto" layoutX="994.0" layoutY="69.0" mnemonicParsing="false" onAction="#consultarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Consultar" textFill="WHITE" />
+                        <JFXButton layoutX="744.0" layoutY="1.0" onAction="#recargarTablaProductos" text="Refresh" />
+                        <JFXComboBox fx:id="CBEstaProd" layoutX="852.0" layoutY="332.0" prefHeight="25.0" prefWidth="138.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
          </tabs>

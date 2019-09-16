@@ -12,7 +12,8 @@ import javafx.collections.ObservableList;
 
 
 public class Usuario {
-
+  
+    //<editor-fold defaultstate="collapsed" desc="Constructores">
     public Usuario(float idUsuario, int idTipoUsua, String NombUsua, String ApelUsua, String GeneUsua, String EstaUsua, String NickUsua, String PassUsua) {
         this.idUsuario = new SimpleFloatProperty(idUsuario);
         this.idTipoUsua = new SimpleIntegerProperty(idTipoUsua);
@@ -28,6 +29,9 @@ public class Usuario {
         
     }
      
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Variables">
     private FloatProperty idUsuario;
     private IntegerProperty idTipoUsua;
     private StringProperty NombUsua;
@@ -39,8 +43,9 @@ public class Usuario {
     
     private ResultSet recibido;
     private String error;
-    
-    
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getters y setters">
     public float getIdUsuario() {
         return idUsuario.get();
     }
@@ -112,12 +117,11 @@ public class Usuario {
     public void setRecibido(ResultSet recibido) {
         this.recibido = recibido;
     }
-    
-    
 
     public String getError() {
         return error;
     }
+    //</editor-fold>
 
     public boolean iniciarSesion(){
         String nameusp = "{call login('"+getNickUsua()+"','"+getPassUsua()+"')}";
@@ -134,7 +138,7 @@ public class Usuario {
         }
     }
 
-    public boolean crudUsuario(String tipoAEjecutar){
+    public boolean crudUsuario(String tipoAEjecutar){   
         String nameusp = "call CrudUsuario(" +getIdUsuario()+","
                                              +getIdTipoUsua()+",'"
                                              +getNombUsua()+"','"
@@ -144,23 +148,26 @@ public class Usuario {
                                              +getPassUsua()+"','"
                                              +tipoAEjecutar+"')";
         Conexion objcon = new Conexion();
-   
+        
         if (objcon.ejecutarSentencia(nameusp)) {
             objcon.cerrarConexion();
             return true;
         }else{
-            error = objcon.error;
+            if (String.valueOf(idUsuario).length()>12) {
+            error = "Id fuera de rango.";
+            }else{
+                error = objcon.error;
+            }   
             objcon.cerrarConexion();
             return false;
-        }
-        
+        }     
     }
 
     public void listarUsuario(ObservableList<Usuario> usuario){
         Conexion con = new Conexion();        
         try {
-        String nameusp ="call listarUsuarios();";
-        if (con.consultar(nameusp)) {
+        
+        if (con.consultaDirecta("SELECT * FROM listarusuarios")) {
             ResultSet rs = con.Reader;
             
             while(rs.next()){
@@ -178,7 +185,7 @@ public class Usuario {
             }
             rs.close();
         }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             error = e.getMessage();
         }
         con.cerrarConexion();
@@ -204,9 +211,9 @@ public class Usuario {
     }
     
     public static void genero(ObservableList genero){
-       genero.add(0, "Masculino");
-       genero.add(1, "Femenino");      
-       genero.add(2, "Indefinido"); 
+       genero.add(0, "M");
+       genero.add(1, "F");      
+       genero.add(2, "I"); 
     }
     
     public static void estado(ObservableList estado){
@@ -223,8 +230,7 @@ public class Usuario {
             error = con.error;
             return false;
         } 
-    }
-    
+    }   
 }
     
 
