@@ -13,20 +13,11 @@
    <children>
       <JFXTabPane prefHeight="168.0" prefWidth="0.0" AnchorPane.bottomAnchor="-168.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
-            <Tab text="Catálogo">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="55.0" layoutY="34.0" mnemonicParsing="false" onAction="#cargarImagen" style="-fx-background-color: rgb(28, 162, 96);" text="Subir Imagen" textFill="WHITE" />
-                        <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" layoutX="327.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
-                     </children></AnchorPane>
-              </content>
-            </Tab>
             <Tab text="Usuario">
               <content>
                 <AnchorPane>
                      <children>
-                        <TableView fx:id="tblUser" layoutX="-2.0" prefHeight="462.0" prefWidth="693.0">
+                        <TableView fx:id="tblUser" fixedCellSize="0.0" layoutX="-2.0" prefHeight="462.0" prefWidth="693.0" AnchorPane.bottomAnchor="168.0" AnchorPane.leftAnchor="-2.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="clmiId" prefWidth="98.0" text="IdUsuario" />
                               <TableColumn fx:id="clmTipo" prefWidth="35.0" text="Tipo" />
@@ -43,7 +34,7 @@
                         <Label layoutX="758.0" layoutY="240.0" text="Genero:" />
                         <Label layoutX="752.0" layoutY="146.0" text="Nombre:" />
                         <Label layoutX="749.0" layoutY="193.0" text="Apellidos:" />
-                        <Label layoutX="837.0" layoutY="-2.0" text="Usuario">
+                        <Label layoutX="837.0" layoutY="4.0" text="Usuario">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -55,13 +46,13 @@
                         <JFXTextField fx:id="nombre" layoutX="802.0" layoutY="142.0" />
                         <JFXTextField fx:id="apellidos" layoutX="802.0" layoutY="189.0" />
                         <JFXComboBox fx:id="genero" layoutX="805.0" layoutY="236.0" prefHeight="25.0" prefWidth="90.0" />
-                        <JFXComboBox fx:id="estado" layoutX="806.0" layoutY="287.0" prefHeight="25.0" prefWidth="89.0" />
+                        <JFXComboBox fx:id="estado" disable="true" layoutX="806.0" layoutY="287.0" prefHeight="25.0" prefWidth="89.0" />
                         <JFXTextField fx:id="nick" disable="true" layoutX="802.0" layoutY="331.0" />
                         <Label layoutX="767.0" layoutY="378.0" text="Clave:" />
-                        <Button layoutX="820.0" layoutY="413.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
-                        <Button fx:id="btnEliminar" disable="true" layoutX="895.0" layoutY="413.0" mnemonicParsing="false" onAction="#eliminarUsuario" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
-                        <Button fx:id="btnModificar" disable="true" layoutX="964.0" layoutY="413.0" mnemonicParsing="false" onAction="#modificarUsuario" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
-                        <Button fx:id="btnAgregar" layoutX="749.0" layoutY="413.0" mnemonicParsing="false" onAction="#agregarUsuario" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
+                        <Button layoutX="746.0" layoutY="413.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
+                        <Button fx:id="btnEliminar" disable="true" layoutX="986.0" layoutY="413.0" mnemonicParsing="false" onAction="#eliminarUsuario" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
+                        <Button fx:id="btnModificar" disable="true" layoutX="902.0" layoutY="413.0" mnemonicParsing="false" onAction="#modificarUsuario" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
+                        <Button fx:id="btnAgregar" layoutX="821.0" layoutY="413.0" mnemonicParsing="false" onAction="#agregarUsuario" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
                         <Button fx:id="btnConsultar" layoutX="948.0" layoutY="54.0" mnemonicParsing="false" onAction="#consultar" style="-fx-background-color: rgb(28, 162, 96);" text="Consultar" textFill="WHITE" />
                         <Label fx:id="mensaje" layoutX="728.0" layoutY="26.0" prefHeight="32.0" prefWidth="302.0">
                            <font>
@@ -69,7 +60,11 @@
                            </font>
                         </Label>
                         <JFXTextField fx:id="pass" disable="true" layoutX="802.0" layoutY="369.0" />
-                        <JFXButton fx:id="refreshUsuario" layoutX="691.0" layoutY="2.0" onAction="#recargarTabla" text="🔂" />
+                        <ImageView fitHeight="31.0" fitWidth="60.0" layoutX="697.0" layoutY="5.0" onMouseClicked="#recargarTabla" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Img/refresh.png" />
+                           </image>
+                        </ImageView>
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -89,7 +84,7 @@
                         <Label layoutX="771.0" layoutY="243.0" text="Valor de Venta:" />
                         <Label layoutX="799.0" layoutY="289.0" text="Cantidad:" />
                         <Label layoutX="808.0" layoutY="336.0" text="Estado:" />
-                        <TableView fx:id="tblProducto" prefHeight="467.0" prefWidth="744.0">
+                        <TableView fx:id="tblProducto" prefHeight="463.0" prefWidth="745.0" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="TCidProductos" prefWidth="83.0" text="Id" />
                             <TableColumn fx:id="TCidTipoProd" prefWidth="118.0" text="Tipo" />
@@ -105,14 +100,27 @@
                         <JFXTextField fx:id="TFnomProd" layoutX="853.0" layoutY="148.0" />
                         <JFXTextField fx:id="TFValorComp" layoutX="853.0" layoutY="192.0" prefHeight="25.0" prefWidth="70.0" />
                         <JFXTextField fx:id="TFValorVenta" layoutX="853.0" layoutY="239.0" prefHeight="25.0" prefWidth="71.0" />
-                        <JFXTextField fx:id="TFCantProd" layoutX="853.0" layoutY="285.0" prefHeight="25.0" prefWidth="73.0" />
-                        <Button fx:id="btnEliminarProducto" disable="true" layoutX="990.0" layoutY="387.0" mnemonicParsing="false" onAction="#eliminarProducto" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
-                        <Button fx:id="btnModificarProducto" disable="true" layoutX="910.0" layoutY="387.0" mnemonicParsing="false" onAction="#modificarProducto" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
-                        <Button fx:id="btnAgregarProducto" layoutX="837.0" layoutY="387.0" mnemonicParsing="false" onAction="#agregarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
-                        <Button layoutX="770.0" layoutY="387.0" mnemonicParsing="false" onAction="#nuevoProducto" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
+                        <JFXTextField fx:id="TFCantProd" layoutX="852.0" layoutY="285.0" prefHeight="25.0" prefWidth="73.0" />
+                        <Button fx:id="btnEliminarProducto" disable="true" layoutX="991.0" layoutY="398.0" mnemonicParsing="false" onAction="#eliminarProducto" style="-fx-background-color: rgb(220, 75, 63);" text="Eliminar" textFill="WHITE" />
+                        <Button fx:id="btnModificarProducto" disable="true" layoutX="911.0" layoutY="398.0" mnemonicParsing="false" onAction="#modificarProducto" style="-fx-background-color: rgb(255, 205, 66);" text="Modificar" textFill="WHITE" />
+                        <Button fx:id="btnAgregarProducto" layoutX="838.0" layoutY="398.0" mnemonicParsing="false" onAction="#agregarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Agregar" textFill="WHITE" />
+                        <Button layoutX="771.0" layoutY="398.0" mnemonicParsing="false" onAction="#nuevoProducto" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: rgb(28, 162, 96);" text="Nuevo" textFill="WHITE" />
                         <Button fx:id="btnConsultarProducto" layoutX="994.0" layoutY="69.0" mnemonicParsing="false" onAction="#consultarProducto" style="-fx-background-color: rgb(28, 162, 96);" text="Consultar" textFill="WHITE" />
-                        <JFXButton fx:id="refreshTBProductos" layoutX="744.0" layoutY="1.0" onAction="#recargarTablaProductos" text="Refresh" visible="false" />
                         <JFXComboBox fx:id="CBEstaProd" layoutX="852.0" layoutY="332.0" prefHeight="25.0" prefWidth="138.0" />
+                        <ImageView fitHeight="31.0" fitWidth="60.0" layoutX="748.0" layoutY="1.0" onMouseClicked="#recargarTablaProductos" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Img/refresh.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Catálogo">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="55.0" layoutY="34.0" mnemonicParsing="false" onAction="#cargarImagen" style="-fx-background-color: rgb(28, 162, 96);" text="Subir Imagen" textFill="WHITE" />
+                        <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" layoutX="327.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
                      </children></AnchorPane>
               </content>
             </Tab>

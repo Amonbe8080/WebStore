@@ -3,6 +3,9 @@ package Modelo;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.beans.property.DoubleProperty;
@@ -159,7 +162,7 @@ public class Producto extends javax.swing.JPanel{
                                                   +getCantProd()+",'"
                                                   +getEstaProd()+"','"
                                                   +tipoAEjecutar+"' )";
-        if (con.ejecutarSentencia(nameusp)) {
+        if (con.noReturnUSP(nameusp)) {
             con.cerrarConexion();
             return true;
         }else{
@@ -236,5 +239,17 @@ public class Producto extends javax.swing.JPanel{
         estados.add(1, "No Disponible"); 
         estados.add(2, "Agotado");
         estados.add(3, "En Revisión");
+    }
+    
+    public boolean intentandoIMG(File img) throws FileNotFoundException{
+        FileInputStream input = new FileInputStream(img);
+        Conexion objCon = new Conexion();
+        
+        if (objCon.ejecucionDirecta("UPDATE productos SET img = '"+input+"' WHERE idProductos = 1")) {
+            return true;
+        }else{  
+            error = objCon.error;
+            return false;
+        }
     }
 }

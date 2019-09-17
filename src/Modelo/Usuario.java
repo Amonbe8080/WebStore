@@ -128,7 +128,7 @@ public class Usuario {
         
         Conexion objcon = new Conexion();
         
-        if (objcon.consultar(nameusp)) {
+        if (objcon.consultarUSP(nameusp)) {
             recibido = objcon.Reader;
             return true;      
         }else{
@@ -149,7 +149,7 @@ public class Usuario {
                                              +tipoAEjecutar+"')";
         Conexion objcon = new Conexion();
         
-        if (objcon.ejecutarSentencia(nameusp)) {
+        if (objcon.noReturnUSP(nameusp)) {
             objcon.cerrarConexion();
             return true;
         }else{
@@ -223,7 +223,7 @@ public class Usuario {
     
     public boolean consultarUsuario(){
         Conexion con = new Conexion();
-        if (con.consultaDirecta("SELECT * FROM usuario WHERE idUsuario = '"+getIdUsuario()+"'")){
+        if (con.consultaDirecta("SELECT * FROM listarusuarios WHERE idUsuario = '"+getIdUsuario()+"'")){
             recibido = con.Reader;
             return true;
         }else{

@@ -48,8 +48,9 @@ public class Conexion {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    
-    public boolean consultar(String nameusp) {
+   
+    // Metodo que ejecuta un procedimiento almacenado del tipo SELECT * FROM usuarios
+    public boolean consultarUSP(String nameusp) {
         if (nameusp.isEmpty()) {
             error = "Nombre de USP vacio";
             return false;
@@ -70,7 +71,8 @@ public class Conexion {
         }
     }
     
-    public boolean ejecutarSentencia(String nameusp){
+    // Metodo que ejecuta un procedimiento almacenado del tipo INSERT, UPDATE, DELETE
+    public boolean noReturnUSP(String nameusp){
         if (nameusp.isEmpty()) {
             error = "Nombre de USP vacio";
             return false;
@@ -89,6 +91,7 @@ public class Conexion {
         }       
     }
     
+    // Metodo del tipo SELECT * FROM usuarios
     public boolean consultaDirecta(String sentencia){
         if (sentencia.isEmpty()) {
             error = "Sentencia vacia";
@@ -100,6 +103,25 @@ public class Conexion {
         try{
             Statement st = connection.createStatement();
             Reader = st.executeQuery(sentencia);
+            return true;
+        } catch (SQLException ex) {
+            error = "Falla al ejecutar sentencia: "+ex.getMessage();
+            return false;
+        }
+    }
+    
+    // Metodo que ejecuta Update, Insert, Delete.
+    public boolean ejecucionDirecta(String sentencia){
+        if (sentencia.isEmpty()) {
+            error = "Sentencia vacia";
+            return false;
+        }  
+        
+        if (!conectar()) { conectar();}
+         
+        try{    
+            Statement st = connection.createStatement();
+            st.executeUpdate(sentencia);
             return true;
         } catch (SQLException ex) {
             error = "Falla al ejecutar sentencia: "+ex.getMessage();

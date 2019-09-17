@@ -124,8 +124,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     @FXML ImageView img;
     @FXML public static AnchorPane mp;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Crear los observable
@@ -177,13 +176,15 @@ public class MenuPrincipalUsuarioController implements Initializable {
         TCCantProd.setCellValueFactory(new PropertyValueFactory<>("CantProd"));
         TCEstaProd.setCellValueFactory(new PropertyValueFactory<>("EstaProd"));
 
+        gestionarEventos();
         recargarTablaProductos();   
         recargarTabla(); 
     }
 
     //<editor-fold defaultstate="collapsed" desc="Metodos de Usuario">    
-    private void gestionarEventos() {
+    private void gestionarEventos() {     
            tblUser.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Usuario> arg0, Usuario valorAnterior, Usuario newValue) -> {               
+               if (newValue != null) {
                 idUsuario.setText(Float.toString(newValue.getIdUsuario()));
                 tipo.setValue(newValue.getIdTipoUsua());
                 nombre.setText(newValue.getNombUsua());
@@ -198,26 +199,27 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 btnModificar.setDisable(false);
                 btnConsultar.setDisable(true);
                 
-                refreshUsuario.setVisible(false);
                 nick.setDisable(true);
                 pass.setDisable(true);
+                
+                idUsuario.setDisable(true);
+                }
             });   
-            
-            
     }
    
     public void modificarUsuario(){
         try {
             
-        float Id = Float.valueOf((idUsuario.getText().trim()));
-        int tipoUsua = Integer.parseInt(tipo.getValue().toString());
-        String NombUsua = nombre.getText();
-        String ApelUsua = apellidos.getText();
-        String GeneUsua = genero.getValue().toString().substring(0, 1);
-        String EstaUsua = estado.getValue().toString();
-        String NickUsua = nick.getText();
-        String PassUsua = pass.getText();
-        Usuario modUser = new Usuario(Id, tipoUsua, NombUsua, ApelUsua, GeneUsua, EstaUsua, NickUsua, PassUsua);
+            float Id = Float.valueOf((idUsuario.getText().trim()));
+            int tipoUsua = Integer.parseInt(tipo.getValue().toString());
+            String NombUsua = nombre.getText();
+            String ApelUsua = apellidos.getText();
+            String GeneUsua = genero.getValue().toString().substring(0, 1);
+            String EstaUsua = estado.getValue().toString();
+            String NickUsua = nick.getText();
+            String PassUsua = pass.getText();
+        
+            Usuario modUser = new Usuario(Id, tipoUsua, NombUsua, ApelUsua, GeneUsua, EstaUsua, NickUsua, PassUsua);
         
         if (modUser.crudUsuario("modificar")) {
             recargarTabla();
@@ -226,6 +228,8 @@ public class MenuPrincipalUsuarioController implements Initializable {
             mensaje.setHeaderText("Usuario modificado con exito.");
             mensaje.show();
             modUser = null;
+            
+            recargarTabla();
 //            img.setImage(value);
         }else{
             mensaje.setText(modUser.getError());
@@ -267,6 +271,9 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 mensaje.setTitle("Realizado.");
                 mensaje.setHeaderText("Usuario Eliminado con exito.");
                 mensaje.show();
+                
+                recargarTabla();
+                nuevo();
             }else{
                 mensaje.setText(delUser.getError());
             }  
@@ -300,7 +307,8 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 mensaje.setTitle("Realizado");
                 mensaje.setHeaderText("Usuario guardado con exito.");
                 mensaje.show();
-
+                
+                recargarTabla();
             }else{
                 mensaje.setText(addUser.getError());
             }
@@ -314,11 +322,11 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     public void nuevo(){
         idUsuario.setText(null);
-        tipo.setValue(0);
+        tipo.setValue(1);
         nombre.setText(null);
         apellidos.setText(null);
         genero.setValue(null);
-        estado.setValue("");
+        estado.setValue("Activo");
         nick.setText(null);
         pass.setText(null);
         
@@ -330,8 +338,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
         nick.setDisable(false);
         pass.setDisable(false);
         
-        refreshUsuario.setVisible(true);
-        tblUser.getSelectionModel().clearSelection();
+        refreshUsuario.setVisible(true);     
     }
     
     public void consultar(){
@@ -372,14 +379,35 @@ public class MenuPrincipalUsuarioController implements Initializable {
         
         Usuario us = new Usuario();
         us.listarUsuario(user);
-          
+        
+        gestionarEventos();
         tblUser.setItems(user);
     }
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos de Productos"> 
+    public boolean verificarCampos(){
+        double valorComp = Double.parseDouble(TFValorComp.getText());
+        double valorVenta = Double.parseDouble(TFValorVenta.getText());
+        double cantidad = Double.parseDouble(TFCantProd.getText());
+        
+        String tipoProd =  CBidTipoProd.getValue().toString().trim();
+        String nombProd = TFnomProd.getText().trim();
+        String estado = CBEstaProd.getValue().toString().trim();
+        
+        if (" ".equals(tipoProd) || " ".equals(nombProd) || " ".equals(estado) || valorComp <= 0|| valorVenta <=0 || cantidad <= 0) {
+            Alert mensaje = new Alert(AlertType.WARNING);
+            mensaje.setTitle("Ups");
+            mensaje.setHeaderText("Error al ingresar los datos, campos vacios o negativos.");
+            mensaje.show();
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
     public void modificarProducto(){
-        try {
+        if (verificarCampos()) {
             int idProd = Integer.parseInt(TFidProducto.getText());
             String tipoProd =  CBidTipoProd.getValue().toString();
             String nombProd = TFnomProd.getText();
@@ -387,29 +415,27 @@ public class MenuPrincipalUsuarioController implements Initializable {
             double valorVenta = Double.parseDouble(TFValorVenta.getText());
             double cantidad = Double.parseDouble(TFCantProd.getText());
             String estado = CBEstaProd.getValue().toString();
+            
             Producto objProd = new Producto(idProd, tipoProd, nombProd, valorComp, valorVenta, cantidad, estado);
             
             if (objProd.crudProducto("modificar")) {
                 tblProducto.getSelectionModel().clearSelection();
                 recargarTabla();
-                Alert mensaje = new Alert(AlertType.INFORMATION);
-                mensaje.setTitle("Realizado.");
-                mensaje.setHeaderText("Producto modificado con exito.");
-                mensaje.show();
+                Alert mjsMod = new Alert(AlertType.INFORMATION);
+                mjsMod.setTitle("Realizado.");
+                mjsMod.setHeaderText("Producto modificado con exito.");
+                mjsMod.show();
                 objProd = null;
+                
+                recargarTablaProductos();
+                nuevoProducto();
             }else{
-                Alert mensaje = new Alert(AlertType.ERROR);
-                mensaje.setTitle("Ups.");
-                mensaje.setHeaderText("Ha ocurrido un error: "+objProd.getError());
-                mensaje.show();
+                Alert modError = new Alert(AlertType.ERROR);
+                modError.setTitle("Ups.");
+                modError.setHeaderText("Ha ocurrido un error: "+objProd.getError());
+                modError.show();
                 objProd = null;
-            }
-            
-        } catch (Exception e) {
-            Alert mensaje = new Alert(AlertType.WARNING);
-            mensaje.setTitle(e.getMessage());
-            mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
-            mensaje.show();
+            }  
         }
     }
     
@@ -432,6 +458,9 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 msjPos.setHeaderText("Producto eliminado con exito.");
                 msjPos.show();
                 objProd = null;
+                
+                recargarTablaProductos();
+                nuevoProducto();
             }else{
                 Alert mensaje = new Alert(AlertType.ERROR);
                 mensaje.setTitle("Ups.");
@@ -447,7 +476,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
     }
     
     public void agregarProducto(){
-        try {
+        if (verificarCampos()) {
             int idProd = Integer.parseInt(TFidProducto.getText());
             String tipoProd = CBidTipoProd.getValue().toString();
             String nombProd = TFnomProd.getText();
@@ -455,6 +484,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
             double valorVenta = Double.parseDouble(TFValorVenta.getText());
             double cantidad = Double.parseDouble(TFCantProd.getText());
             String estado = CBEstaProd.getValue().toString();
+            
             Producto objProd = new Producto(idProd, tipoProd, nombProd, valorComp, valorVenta, cantidad, estado);
             
             if (objProd.crudProducto("guardar")) {
@@ -465,19 +495,15 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 msjPos.setHeaderText("Producto agregado con exito.");
                 msjPos.show();
                 objProd = null;
+                recargarTablaProductos();
             }else{
-                Alert mensaje = new Alert(AlertType.ERROR);
-                mensaje.setTitle("Ups.");
-                mensaje.setHeaderText("Ha ocurrido un error: "+objProd.getError());
-                mensaje.show();
+                Alert guardarErr = new Alert(AlertType.ERROR);
+                guardarErr.setTitle("Ups.");
+                guardarErr.setHeaderText("Ha ocurrido un error: "+objProd.getError());
+                guardarErr.show();
                 objProd = null;
-        } 
-        } catch (Exception e) {
-            Alert mensaje = new Alert(AlertType.WARNING);
-            mensaje.setTitle(e.getMessage());
-            mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
-            mensaje.show();
-        }
+         } 
+       }
     }
     
     public void consultarProducto(){
@@ -492,6 +518,13 @@ public class MenuPrincipalUsuarioController implements Initializable {
                     TFValorVenta.setText(String.valueOf(rs.getFloat("ValorVent")));
                     TFCantProd.setText(String.valueOf(rs.getFloat("CantProd")));
                     CBEstaProd.setValue(rs.getString("EstaProd"));
+                    
+                    rs.close();
+                    
+                    btnModificarProducto.setDisable(false);
+                    btnEliminarProducto.setDisable(false);
+                    
+                    btnAgregarProducto.setDisable(true);
                 }else{
                    Alert mensaje = new Alert(AlertType.WARNING);
                     mensaje.setHeaderText("No existe un producto con este id.");
@@ -507,23 +540,22 @@ public class MenuPrincipalUsuarioController implements Initializable {
     }
     
     private void TBProductos() {
-        // Error: Cuando se recarga la tabla, se intenta buscar un valor seleccionado.
-        // Al no haber nada selecionado se lanza error.  
            tblProducto.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Producto> arg0, Producto valorAnterior, Producto newValue) -> { 
-                TFidProducto.setText(Integer.toString(newValue.getIdProductos()));
-                CBidTipoProd.setValue(newValue.getCategoria());
-                TFnomProd.setText(newValue.getNombProd());
-                TFValorComp.setText(Double.toString(newValue.getValorComp()));
-                TFValorVenta.setText(Double.toString(newValue.getValorVent()));
-                TFCantProd.setText(Double.toString(newValue.getCantProd()));
-                CBEstaProd.setValue(newValue.getEstaProd());
+                if (newValue != null) {
+                    TFidProducto.setText(Integer.toString(newValue.getIdProductos()));
+                    TFidProducto.setDisable(true);
+                    CBidTipoProd.setValue(newValue.getCategoria());
+                    TFnomProd.setText(newValue.getNombProd());
+                    TFValorComp.setText(Double.toString(newValue.getValorComp()));
+                    TFValorVenta.setText(Double.toString(newValue.getValorVent()));
+                    TFCantProd.setText(Double.toString(newValue.getCantProd()));
+                    CBEstaProd.setValue(newValue.getEstaProd());
 
-                btnAgregarProducto.setDisable(true);
-                btnEliminarProducto.setDisable(false);
-                btnModificarProducto.setDisable(false);
-                btnConsultarProducto.setDisable(true);
-                
-                refreshTBProductos.setVisible(false);
+                    btnAgregarProducto.setDisable(true);
+                    btnEliminarProducto.setDisable(false);
+                    btnModificarProducto.setDisable(false);
+                    btnConsultarProducto.setDisable(true);
+                }
             });   
         
     }
@@ -535,21 +567,23 @@ public class MenuPrincipalUsuarioController implements Initializable {
         TFValorComp.setText("");
         TFValorVenta.setText("");
         TFCantProd.setText("");
-        CBEstaProd.setValue("");
+        CBEstaProd.setValue("Disponible");
         
+        TFidProducto.setDisable(false);
+        
+        btnAgregarProducto.setDisable(false);
         btnConsultarProducto.setDisable(false);
-        refreshTBProductos.setVisible(true);
+        btnEliminarProducto.setDisable(true);
+        btnModificarProducto.setDisable(true);
    }
     
     public void recargarTablaProductos(){
-        tblProducto.getSelectionModel().clearSelection();
         test.removeAll(test);
         
         Producto pro = new Producto();
         pro.listarProductos(test);
 
-        TBProductos();
-        
+        TBProductos();    
         tblProducto.setItems(test);
     }
     //</editor-fold>
@@ -569,30 +603,19 @@ public class MenuPrincipalUsuarioController implements Initializable {
             
             File imgFile = fileChooser.showOpenDialog(null);
 
-            
             if (imgFile != null) {
-            Image image = new Image("file:" + imgFile.getAbsolutePath());
-            img.setImage(image);
-        }
+                Image image = new Image("file:" + imgFile.getAbsolutePath());
+                img.setImage(image);
+                
+                Producto pro = new Producto();
+                if (pro.intentandoIMG(imgFile)) {
+                    System.out.println("Imagen Guardada");
+                }else{
+                    System.out.println(pro.getError());
+                }
+            }
 
-            Conexion objCon = new Conexion();
-            String updateSQL ="UPDATE productos "
-                            + "SET ImageProd = ? "
-                            + "WHERE idProductos=?";
-            
-            FileInputStream input = new FileInputStream(imgFile);
-
-            PreparedStatement ps = objCon.getConnection().prepareStatement(updateSQL);
-            // set parameters
-            ps.setBlob(1, input);
-
-            ps.setInt(2, 238123);
-
-            ps.execute();
-
-            System.out.println("Hecho");
-        
-        } catch (FileNotFoundException | SQLException ex) {
+        } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
  
