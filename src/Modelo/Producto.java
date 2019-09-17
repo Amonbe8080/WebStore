@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.beans.property.DoubleProperty;
@@ -15,6 +17,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 public class Producto extends javax.swing.JPanel{
     
@@ -241,15 +244,39 @@ public class Producto extends javax.swing.JPanel{
         estados.add(3, "En Revisión");
     }
     
-    public boolean intentandoIMG(File img) throws FileNotFoundException{
+    public boolean insertarIMG(File img) throws FileNotFoundException{
         FileInputStream input = new FileInputStream(img);
         Conexion objCon = new Conexion();
         
-        if (objCon.ejecucionDirecta("UPDATE productos SET img = '"+input+"' WHERE idProductos = 1")) {
+        if (objCon.ejecucionDirecta("UPDATE productos SET img = '"+input+"' WHERE idProductos = 6")) {
             return true;
         }else{  
             error = objCon.error;
             return false;
         }
+    }
+    
+    public Image consultarIMG() {
+        try {
+        Conexion objCon = new Conexion();
+        if (objCon.consultaDirecta("SELECT img FROM productos WHERE idProductos = 1")) {
+            ResultSet rs = objCon.Reader;
+            while (rs.next()){      
+                Blob b = rs.getBlob(1);
+                InputStream imgInput = b.getBinaryStream();
+ 
+                Image mostrarImg = new Image(imgInput);
+     
+                return mostrarImg;
+            }
+         }else{
+            error = objCon.error;
+        }   
+        
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return null;
     }
 }

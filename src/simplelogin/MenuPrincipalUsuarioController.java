@@ -1,17 +1,17 @@
 
 package simplelogin;
 
-import Modelo.Conexion;
 import Modelo.Producto;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
-import java.sql.PreparedStatement;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -124,6 +124,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     @FXML ImageView img;
     @FXML public static AnchorPane mp;
+    @FXML JFXTextField idIMG;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -608,7 +609,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 img.setImage(image);
                 
                 Producto pro = new Producto();
-                if (pro.intentandoIMG(imgFile)) {
+                if (pro.insertarIMG(imgFile)) {
                     System.out.println("Imagen Guardada");
                 }else{
                     System.out.println(pro.getError());
@@ -620,4 +621,9 @@ public class MenuPrincipalUsuarioController implements Initializable {
         }
  
     }   
+    
+    public void seleccionarImagen() throws SQLException{
+        Producto pr = new Producto();
+        img.setImage(pr.consultarIMG());
+    }
 }
