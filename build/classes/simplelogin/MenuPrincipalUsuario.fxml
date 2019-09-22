@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
@@ -121,6 +122,9 @@
                      <children>
                         <Button layoutX="55.0" layoutY="34.0" mnemonicParsing="false" onAction="#cargarImagen" style="-fx-background-color: rgb(28, 162, 96);" text="Subir Imagen" textFill="WHITE" />
                         <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" layoutX="327.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+                        <JFXTextField fx:id="idIMG" layoutX="55.0" layoutY="159.0" />
+                        <Button layoutX="200.0" layoutY="159.0" mnemonicParsing="false" onAction="#seleccionarImagen" text="Consultar" />
+                        <Label layoutX="40.0" layoutY="167.0" text="Id:" />
                      </children></AnchorPane>
               </content>
             </Tab>

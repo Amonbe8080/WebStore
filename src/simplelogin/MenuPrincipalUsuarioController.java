@@ -1,17 +1,19 @@
 
 package simplelogin;
 
+import Modelo.Conexion;
 import Modelo.Producto;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -31,6 +33,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 
 public class MenuPrincipalUsuarioController implements Initializable {
@@ -622,8 +626,29 @@ public class MenuPrincipalUsuarioController implements Initializable {
  
     }   
     
-    public void seleccionarImagen() throws SQLException{
-        Producto pr = new Producto();
-        img.setImage(pr.consultarIMG());
+    public void seleccionarImagen(){
+        try {
+            Conexion objCon = new Conexion();
+            if (objCon.consultaDirecta("SELECT img FROM productos WHERE idProductos = '6'")) {
+
+                if(objCon.Reader.next()){   
+                    InputStream is = objCon.Reader.getBinaryStream("img");
+                    OutputStream os = new FileOutputStream(new File("photo.jpg"));
+                    byte[] content = new byte[1024];
+                    int size = 0;
+                    while((size = is.read(content)) != -1) {                        
+                        os.write(content, 0, size);
+                    }
+                    Image image1 = new Image("file:"+getClass().getResourceAsStream("/Assets/Img/pc.jpg"));
+                    img.setImage(image1);
+                   
+                }else{
+                    System.out.println("No ha devuelto nada.");
+                }
+             }   
+        } catch (SQLException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
