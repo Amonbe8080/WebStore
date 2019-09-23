@@ -128,6 +128,15 @@
                      </children></AnchorPane>
               </content>
             </Tab>
+            <Tab text="Reportes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton layoutX="81.0" layoutY="142.0" onAction="#reporteProductos" text="Reporte de Productos" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
          </tabs>
       </JFXTabPane>
    </children>

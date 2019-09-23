@@ -8,8 +8,16 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SimpleLogin.jar" size="1799011" download="eager" />
+    <jar href="SimpleLogin.jar" size="2333027" download="eager" />
+    <jar href="lib\AbsoluteLayout.jar" size="2847" download="eager" />
+    <jar href="lib\commons-collections-3.2.1.jar" size="575389" download="eager" />
+    <jar href="lib\commons-digester-2.1.jar" size="196768" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
     <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
+    <jar href="lib\groovy-2.4.5.jar" size="4553023" download="eager" />
+    <jar href="lib\itext-pdfa-5.5.4.jar" size="62418" download="eager" />
+    <jar href="lib\itextpdf-5.5.4.jar" size="2148390" download="eager" />
+    <jar href="lib\jasperreports-6.0.0.jar" size="5144510" download="eager" />
     <jar href="lib\jfoenix-8.0.4.jar" size="2487326" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>

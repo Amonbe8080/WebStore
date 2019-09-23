@@ -33,8 +33,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class MenuPrincipalUsuarioController implements Initializable {
@@ -650,5 +655,26 @@ public class MenuPrincipalUsuarioController implements Initializable {
             System.out.println(e.getMessage());
         }
 
+    }
+    
+    public void reporteProductos(){
+        try {
+        Conexion con = new Conexion();
+        JasperReport reporte = null;
+        String path = "src\\Reportes\\Productos.jasper";       
+        reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+        
+        con.conectar();
+            
+        JasperPrint jprint = JasperFillManager.fillReport(path, null, con.getConnection());
+        
+        JasperViewer view = new JasperViewer(jprint,false);
+            
+        view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        view.setVisible(true);
+        } catch (JRException ex) {
+            System.out.println("Error al cargar reporte.");
+        }
     }
 }
