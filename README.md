@@ -13,7 +13,7 @@ Intento de agregar y leer imagenes a una base de datos.
   ![Imagen del login](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Login.png)    
   
   Registro funcional, registra, muestra errores de acuerdo al contexto.
-   ![Imagen del registro](https://github.com/Amonbe8080/WebStore/tree/master/ScreenshotsRegistro.png)    
+   ![Imagen del registro](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Registro.png)    
    
   Menú funcional (Error al cerrar sesión)
   ![Imagen del menu-usuario](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Menu-Usuario.png)    
