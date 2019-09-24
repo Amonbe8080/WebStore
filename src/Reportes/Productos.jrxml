@@ -32,16 +32,9 @@ FROM
 	<title>
 		<band height="146" splitType="Stretch">
 			<image scaleImage="FillFrame">
-				<reportElement x="-20" y="-20" width="595" height="166" uuid="6b06bca8-7583-4b33-8549-9acd01e1fd8d"/>
-				<imageExpression><![CDATA["C:\\WebStore\\src\\Assets\\Img\\moon.jpg"]]></imageExpression>
+				<reportElement x="-20" y="-20" width="601" height="165" uuid="59ce360b-3cd9-4bb6-abfe-389bdc0dc67a"/>
+				<imageExpression><![CDATA["C:\\Webstore\\src\\Assets\\Img\\moon.jpg"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement style="Title" x="-10" y="35" width="224" height="39" forecolor="#F9880E" uuid="5d266296-c0c8-4f9f-80b7-9438ba28588f"/>
-				<textElement verticalAlignment="Middle">
-					<font size="22" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Reporte de Productos]]></text>
-			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement style="Column header" x="0" y="74" width="197" height="20" forecolor="#FFFFFF" uuid="1063315e-65e8-47a7-8e6a-6032641d72aa"/>
 				<textElement>
@@ -50,11 +43,11 @@ FROM
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Title" x="360" y="25" width="128" height="33" forecolor="#F9880E" uuid="fc15ec57-2c78-4b3b-b34d-8fbbe1b7f1f8"/>
+				<reportElement style="Title" x="-13" y="35" width="224" height="39" forecolor="#F9880E" uuid="5d266296-c0c8-4f9f-80b7-9438ba28588f"/>
 				<textElement verticalAlignment="Middle">
-					<font size="28" isBold="false"/>
+					<font size="22" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Perceptio]]></text>
+				<text><![CDATA[Reporte de Productos]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Title" x="356" y="58" width="132" height="57" forecolor="#FFFFFF" uuid="8eb6d45f-61f8-4e9e-8376-a86f3edbc8d7"/>
@@ -63,6 +56,13 @@ FROM
 				</textElement>
 				<text><![CDATA[Cra. 43B No. 11-71 Medellín – Colombia
 +57 (4) 444 88 00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Title" x="360" y="25" width="128" height="33" forecolor="#F9880E" uuid="fc15ec57-2c78-4b3b-b34d-8fbbe1b7f1f8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="28" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Perceptio]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -140,10 +140,10 @@ FROM
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="187" splitType="Stretch"/>
+		<band height="12" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="24" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
 				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="6106d414-8516-411f-b21e-1d8b3d1cff2e"/>
 				<textElement textAlignment="Right">
