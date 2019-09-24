@@ -7,21 +7,24 @@ import Modelo.Usuario;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -33,6 +36,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -60,7 +64,6 @@ public class MenuPrincipalUsuarioController implements Initializable {
     @FXML private Button btnModificar;
     @FXML private Button btnAgregar;
     @FXML private Button btnConsultar;
-    @FXML private JFXButton refreshUsuario;
     
     //Label error
     @FXML private Label mensaje;
@@ -134,6 +137,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
     @FXML ImageView img;
     @FXML public static AnchorPane mp;
     @FXML JFXTextField idIMG;
+    @FXML ImageView imgMostrar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -189,6 +193,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
         gestionarEventos();
         recargarTablaProductos();   
         recargarTabla(); 
+       
     }
 
     //<editor-fold defaultstate="collapsed" desc="Metodos de Usuario">    
@@ -212,7 +217,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 nick.setDisable(true);
                 pass.setDisable(true);
                 
-                idUsuario.setDisable(true);
+
                 }
             });   
     }
@@ -323,10 +328,10 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 mensaje.setText(addUser.getError());
             }
             } catch (Exception e) {
-                Alert mensaje = new Alert(AlertType.WARNING);
-                mensaje.setTitle(e.getMessage().toString());
-                mensaje.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
-                mensaje.show();
+                Alert errormsj = new Alert(AlertType.WARNING);
+                errormsj.setTitle(e.getMessage());
+                errormsj.setHeaderText("Error al ingresar los datos, intentalo de nuevo.");
+                errormsj.show();
             }
     }
     
@@ -346,9 +351,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
         btnConsultar.setDisable(false); 
         
         nick.setDisable(false);
-        pass.setDisable(false);
-        
-        refreshUsuario.setVisible(true);     
+        pass.setDisable(false); 
     }
     
     public void consultar(){
@@ -365,7 +368,14 @@ public class MenuPrincipalUsuarioController implements Initializable {
                     genero.setValue(recibido.getString("GeneUsua").substring(0,1));
                     estado.setValue(recibido.getString("EstaUsua"));
                     nick.setText(recibido.getString("NickUsua"));
-                    pass.setText(recibido.getString("PassUsua"));   
+                    pass.setText(recibido.getString("PassUsua"));  
+                    
+                    btnModificar.setDisable(false);
+                    btnEliminar.setDisable(false);
+                    btnAgregar.setDisable(true);
+                    
+                    nick.setDisable(true);
+                    pass.setDisable(true);
                 }else{
                     Alert mensaje = new Alert(AlertType.ERROR);
                     mensaje.setTitle("No encontrado.");
@@ -397,22 +407,33 @@ public class MenuPrincipalUsuarioController implements Initializable {
     
     //<editor-fold defaultstate="collapsed" desc="Metodos de Productos"> 
     public boolean verificarCampos(){
-        double valorComp = Double.parseDouble(TFValorComp.getText());
-        double valorVenta = Double.parseDouble(TFValorVenta.getText());
-        double cantidad = Double.parseDouble(TFCantProd.getText());
+        try {
+            
+       
+            float valorComp = Float.parseFloat(TFValorComp.getText());
+            float valorVenta = Float.parseFloat(TFValorVenta.getText());
+            float cantidad = Float.parseFloat(TFCantProd.getText());
         
-        String tipoProd =  CBidTipoProd.getValue().toString().trim();
-        String nombProd = TFnomProd.getText().trim();
-        String estado = CBEstaProd.getValue().toString().trim();
-        
-        if (" ".equals(tipoProd) || " ".equals(nombProd) || " ".equals(estado) || valorComp <= 0|| valorVenta <=0 || cantidad <= 0) {
-            Alert mensaje = new Alert(AlertType.WARNING);
-            mensaje.setTitle("Ups");
-            mensaje.setHeaderText("Error al ingresar los datos, campos vacios o negativos.");
-            mensaje.show();
+            String tipoProd =  CBidTipoProd.getValue().toString();
+            String nombProd = TFnomProd.getText();
+            String state = CBEstaProd.getValue().toString();
+
+ 
+        if (" ".equals(tipoProd) || " ".equals(nombProd) || " ".equals(state) || valorComp <= 0|| valorVenta <=0 || cantidad <= 0) {
+            Alert vermsj = new Alert(AlertType.WARNING);
+            vermsj.setTitle("Ups");
+            vermsj.setHeaderText("Error al ingresar los datos, campos vacios o negativos.");
+            vermsj.show();
             return false;
         }else{
             return true;
+        }
+         } catch (Exception e) {
+            Alert vermsj = new Alert(AlertType.WARNING);
+            vermsj.setTitle("Ups");
+            vermsj.setHeaderText("Error al ingresar los datos, campos vacios o negativos.");
+            vermsj.show();
+            return false;
         }
     }
     
@@ -494,7 +515,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
             double valorVenta = Double.parseDouble(TFValorVenta.getText());
             double cantidad = Double.parseDouble(TFCantProd.getText());
             String estado = CBEstaProd.getValue().toString();
-            
+            System.out.println(idProd);
             Producto objProd = new Producto(idProd, tipoProd, nombProd, valorComp, valorVenta, cantidad, estado);
             
             if (objProd.crudProducto("guardar")) {
@@ -506,6 +527,7 @@ public class MenuPrincipalUsuarioController implements Initializable {
                 msjPos.show();
                 objProd = null;
                 recargarTablaProductos();
+                nuevoProducto();
             }else{
                 Alert guardarErr = new Alert(AlertType.ERROR);
                 guardarErr.setTitle("Ups.");
@@ -632,26 +654,27 @@ public class MenuPrincipalUsuarioController implements Initializable {
     }   
     
     public void seleccionarImagen(){
+        String as = idIMG.getText();
         try {
             Conexion objCon = new Conexion();
-            if (objCon.consultaDirecta("SELECT img FROM productos WHERE idProductos = '6'")) {
+            if (objCon.consultaDirecta("SELECT img FROM productos WHERE idProductos = '"+as+"'")) {
 
                 if(objCon.Reader.next()){   
-                    InputStream is = objCon.Reader.getBinaryStream("img");
-                    OutputStream os = new FileOutputStream(new File("photo.jpg"));
-                    byte[] content = new byte[1024];
-                    int size = 0;
-                    while((size = is.read(content)) != -1) {                        
-                        os.write(content, 0, size);
-                    }
-                    Image image1 = new Image("file:"+getClass().getResourceAsStream("/Assets/Img/pc.jpg"));
-                    img.setImage(image1);
-                   
+                    byte byteImage[] = null;
+
+                    // obtener la columna imagen, luego el arreglo de bytes 
+                    Blob blob = objCon.Reader.getBlob("img");
+                    byteImage = blob.getBytes(1, (int) blob.length());
+
+                    // crear el Image y mostrarlo en el ImageView
+                    Image imgen = new Image(new ByteArrayInputStream(byteImage));
+                    imgMostrar = new ImageView(imgen);
+                    imgMostrar.setImage(imgen);
                 }else{
                     System.out.println("No ha devuelto nada.");
                 }
              }   
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
@@ -676,5 +699,28 @@ public class MenuPrincipalUsuarioController implements Initializable {
         } catch (JRException ex) {
             System.out.println("Error al cargar reporte.");
         }
+    }
+    
+    public void cerrarSesion() {
+        try {         
+            if (mp.getScene() == null) {
+                Stage stage = new Stage();
+                AnchorPane ap = FXMLLoader.load(getClass().getResource("Login.fxml"));
+
+                stage.setResizable(false);
+                stage.getIcons().add(new Image("Assets/Img/New-firefox-logo-2019.png"));
+                stage.setScene(new Scene(ap));  
+                stage.show(); 
+            }else{
+                mp.getScene().getWindow().hide();
+            }
+            
+            
+            
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+            
+
     }
 }

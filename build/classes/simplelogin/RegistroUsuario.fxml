@@ -20,7 +20,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </JFXTextField>
-            <JFXComboBox fx:id="cmbgene" focusColor="#fc8d0f" labelFloat="true" layoutX="159.0" layoutY="252.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="135.0" unFocusColor="#fc8d0f">
+            <JFXComboBox fx:id="cmbgene" blendMode="DARKEN" focusColor="#fc8d0f" labelFloat="true" layoutX="159.0" layoutY="252.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="135.0" unFocusColor="#fc8d0f">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -10,9 +10,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="mp" prefHeight="499.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simplelogin.MenuPrincipalUsuarioController">
+<AnchorPane id="AnchorPane" fx:id="mp" prefHeight="499.0" prefWidth="1274.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simplelogin.MenuPrincipalUsuarioController">
    <children>
-      <JFXTabPane prefHeight="168.0" prefWidth="0.0" AnchorPane.bottomAnchor="-168.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="-3.0" prefHeight="507.0" prefWidth="198.0" style="-fx-background-color: #291F52;" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="134.0" fitWidth="142.0" layoutX="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Img/Logo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="mostrarName" layoutX="42.0" layoutY="115.0" prefHeight="38.0" prefWidth="115.0" text="Perceptio" textFill="#00bcd4">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXTabPane layoutX="199.0" prefHeight="667.0" prefWidth="876.0" AnchorPane.bottomAnchor="-168.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
             <Tab text="Usuario">
               <content>
@@ -120,24 +134,44 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="55.0" layoutY="34.0" mnemonicParsing="false" onAction="#cargarImagen" style="-fx-background-color: rgb(28, 162, 96);" text="Subir Imagen" textFill="WHITE" />
-                        <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" layoutX="327.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
-                        <JFXTextField fx:id="idIMG" layoutX="55.0" layoutY="159.0" />
-                        <Button layoutX="200.0" layoutY="159.0" mnemonicParsing="false" onAction="#seleccionarImagen" text="Consultar" />
-                        <Label layoutX="40.0" layoutY="167.0" text="Id:" />
+                        <Button layoutX="126.0" layoutY="251.0" mnemonicParsing="false" onAction="#cargarImagen" style="-fx-background-color: rgb(28, 162, 96);" text="Subir Imagen" textFill="WHITE" />
+                        <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" layoutX="239.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true" smooth="false" />
+                        <JFXTextField fx:id="idIMG" layoutX="605.0" layoutY="239.0" />
+                        <Button layoutX="750.0" layoutY="239.0" mnemonicParsing="false" onAction="#seleccionarImagen" style="-fx-background-color: rgb(28, 162, 96);" text="Consultar" textFill="WHITE" />
+                        <Label layoutX="590.0" layoutY="247.0" text="Id:" />
+                        <Label layoutX="425.0" layoutY="37.0" text="Zona en desarrollo" textFill="RED">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Text layoutX="194.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pensada para que cada producto contenga una imagen, la cual se podra Eliminar, Editar e Insertar." wrappingWidth="652.9111328125">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#058329" layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcional: Seleccionar Imagen y almacenarla en la base de datos.">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fill="RED" layoutX="555.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restante: Mostrar la imagen desde la base de datos.">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <ImageView fx:id="imgMostrar" fitHeight="150.0" fitWidth="200.0" layoutX="590.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
                      </children></AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Reportes">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <JFXButton layoutX="81.0" layoutY="142.0" onAction="#reporteProductos" text="Reporte de Productos" />
-                     </children>
-                  </AnchorPane>
               </content>
             </Tab>
          </tabs>
       </JFXTabPane>
+      <JFXButton layoutX="13.0" layoutY="309.0" onAction="#reporteProductos" prefHeight="28.0" prefWidth="171.0" style="-fx-background-color: #00BCD4;" text="Reporte de Productos" textFill="#fcfcfc" />
+      <JFXButton layoutX="14.0" layoutY="345.0" onAction="#cerrarSesion" prefHeight="28.0" prefWidth="171.0" style="-fx-background-color: #fc8d0f;" text="Cerrar Sesión" textFill="WHITE" />
+      <Text fill="#eeeeee" layoutX="46.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cra. 43B No. 11-71Medellín – Colombia+57 (4) 444 88 00" textAlignment="CENTER" wrappingWidth="107.0" />
+      <Label layoutX="39.0" layoutY="396.0" text="Encuéntranos en:" textFill="#fc8d0f">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `webstore` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `webstore`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: webstore
 -- ------------------------------------------------------
--- Server version	5.7.26
+-- Server version	5.5.5-10.1.39-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -253,24 +251,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `listusr`
---
-
-DROP TABLE IF EXISTS `listusr`;
-/*!50001 DROP VIEW IF EXISTS `listusr`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `listusr` AS SELECT 
- 1 AS `idtipousua`,
- 1 AS `idtipodocu`,
- 1 AS `idUsuario`,
- 1 AS `NombreUser`,
- 1 AS `email`,
- 1 AS `telefonos`,
- 1 AS `estausua`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `productos`
 --
 
@@ -285,10 +265,11 @@ CREATE TABLE `productos` (
   `ValorVent` decimal(20,2) NOT NULL COMMENT 'Valor de Venta al Cliente',
   `CantProd` decimal(20,0) NOT NULL,
   `EstaProd` varchar(45) NOT NULL COMMENT 'Estado del Producto',
+  `img` blob,
   PRIMARY KEY (`idProductos`,`idTipoProd`),
   KEY `fk_Productos_TipoProd1_idx` (`idTipoProd`),
   CONSTRAINT `fk_Productos_TipoProd1` FOREIGN KEY (`idTipoProd`) REFERENCES `tipoprod` (`idTipoProd`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Tabla para la Discriminacion de los Productos';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='Tabla para la Discriminacion de los Productos';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,7 +278,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,1,'Camisa Polo Negra',25.00,35.00,12,'Disponible'),(6,3,'Zapato en Cuerina Negra',65.00,75.00,50,'No Disponible'),(7,2,'Zapato en Cuerina Negra',65.00,75.00,50,'Disponible'),(8,3,'Zapato en Cuerina Negra',65.00,75.00,50,'Disponible');
+INSERT INTO `productos` VALUES (1,1,'Camisa Polo Cafe',34.00,34.00,1,'Disponible',NULL),(6,4,'Zapato en Cuerina Negra',65.00,75.00,50,'Disponible',NULL),(7,4,'Zapato en Cuerina Cafe',65.00,115.00,50,'Disponible',NULL),(8,4,'Zapato en Cuerina Naranja',65.00,175.00,50,'Disponible','java.io.FileInputStream@7d717332'),(9,5,'Tanga Narizona',5.00,8.00,12,'Disponible',NULL),(10,1,'Camisa de manga larga',5.00,5.00,5,'Disponible',NULL),(11,4,'Zapatilla Rosada',3.00,3.00,3,'Disponible',NULL),(12,1,'Camida de manga corta',5.00,5.00,5,'Disponible',NULL),(13,1,'Camisa de manga larga color negro',55.00,51.00,52,'Disponible',NULL),(14,2,' pantalon cuero dama negro',100.00,101.00,52,'Disponible',NULL),(15,2,' pantalon cuero unisex',100.00,101.00,52,'Disponible',NULL),(16,2,' pantalon cuero dama',100.00,101.00,52,'Disponible',NULL),(17,2,' pantalon cuero Hombre',100.00,101.00,52,'Disponible',NULL),(18,2,' pantalon cuero hombre piel',100.00,101.00,52,'Disponible',NULL),(19,2,' pantalon cuero XL',100.00,101.00,52,'Disponible',NULL),(20,2,' pantalon cuero M',100.00,101.00,52,'Disponible',NULL),(21,4,'chanclas nike',15.00,50.00,25,'Disponible',NULL),(22,3,'Camiseta azul que no es azul',12.00,42.00,10,'Disponible',NULL),(23,2,'Jersey Camuflado',224.00,223.00,78,'Disponible',NULL);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,7 +446,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (10062221,1,'Juan','Tamayo Ochoa','I','Activo','tamayito','re'),(14395999,1,'Eder','Lara Trujillo','F','Activo','elara','12345');
+INSERT INTO `usuario` VALUES (12,5,'Kevin','Suaza Gomez','M','Activo','kealsugo','12345'),(102,5,'Juan de Dios','Gonzales Pata','M','Activo','oefe','lipe'),(12343,2,'Bonzo Gonzo','Bonanza Gomez','M','Inactivo','jije','132'),(10062221,1,'Juan','Tamallo Ochoa','M','Activo','tamayito','re'),(14355955,5,'Eder','Lara Trujillo','M','Activo','elarat','123456'),(14395999,1,'Eder','Lara Trujillo','M','Inactivo','elara','fu');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,11 +520,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CrudUsuario`(IN `v_idUsuario` DECIMAL(10,0), IN `v_idTipoUsua` INT, IN `v_NombUsua` VARCHAR(255), IN `v_ApelUsua` VARCHAR(255), IN `v_GeneUsua` VARCHAR(1), IN `v_NickUsua` VARCHAR(255), IN `v_PassUsua` VARCHAR(255), IN `boton` VARCHAR(45))
 BEGIN
@@ -561,8 +542,8 @@ insert into usuario values (v_idUsuario, v_idTipoUsua, v_NombUsua, v_ApelUsua, v
 when boton = 'modificar' then
 -- Modificamos los datos de la tabla, en este caso podemos modificar todo excepto el id del usuario, el tipo del usuario y el estado:
 update usuario
-set NombUsua = v_NombUsua, ApelUsua = v_ApelUsua, GeneUsua = v_GeneUsua, NickUsua = v_NickUsua, PassUsua = v_PassUsua
-where idUsuario = v_idUsuario and idTipoUsua= v_idTipoUsua;
+set NombUsua = v_NombUsua, idTipoUsua = v_idTipoUsua, ApelUsua = v_ApelUsua, GeneUsua = v_GeneUsua, NickUsua = v_NickUsua, PassUsua = v_PassUsua
+where idUsuario = v_idUsuario ;
 
 when boton = 'eliminar' then
 set  @estausua = 'Inactivo';
@@ -690,25 +671,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `listarusuarios` AS select `usuario`.`idUsuario` AS `idUsuario`,`usuario`.`idTipoUsua` AS `idTipoUsua`,`usuario`.`NombUsua` AS `NombUsua`,`usuario`.`ApelUsua` AS `ApelUsua`,`usuario`.`GeneUsua` AS `GeneUsua`,`usuario`.`EstaUsua` AS `EstaUsua`,`usuario`.`NickUsua` AS `NickUsua`,`usuario`.`PassUsua` AS `PassUsua` from `usuario` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `listusr`
---
-
-/*!50001 DROP VIEW IF EXISTS `listusr`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `listusr` AS select 1 AS `idtipousua`,1 AS `idtipodocu`,1 AS `idUsuario`,1 AS `NombreUser`,1 AS `email`,1 AS `telefonos`,1 AS `estausua` */;
+/*!50001 VIEW `listarusuarios` AS select `usuario`.`idUsuario` AS `idUsuario`,`usuario`.`idTipoUsua` AS `idTipoUsua`,`usuario`.`NombUsua` AS `NombUsua`,`usuario`.`ApelUsua` AS `ApelUsua`,`usuario`.`GeneUsua` AS `GeneUsua`,`usuario`.`EstaUsua` AS `EstaUsua`,`usuario`.`NickUsua` AS `NickUsua`,`usuario`.`PassUsua` AS `PassUsua` from `usuario` where (`usuario`.`EstaUsua` = 'Activo') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -740,4 +703,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-15 22:42:41
+-- Dump completed on 2019-09-23 17:43:56

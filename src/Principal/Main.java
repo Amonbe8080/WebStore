@@ -5,6 +5,7 @@
  */
 package Principal;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/simplelogin/MenuPrincipalUsuario.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/simplelogin/Login.fxml"));
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -31,7 +32,7 @@ public class Main extends Application {
             stage.setTitle("Comienza ya a construir.");;
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

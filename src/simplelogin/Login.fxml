@@ -39,12 +39,14 @@
          </font>
       </Text>
       <Separator layoutX="256.0" orientation="VERTICAL" prefHeight="477.0" prefWidth="14.0" valignment="BOTTOM" />
-      <Hyperlink layoutX="284.0" layoutY="399.0" prefHeight="34.0" prefWidth="34.0" />
-      <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="286.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Assets/Img/in.png" />
-         </image>
-      </ImageView>
+      <Hyperlink fx:id="linkedin" layoutX="284.0" layoutY="399.0" prefHeight="34.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Img/in.png" />
+               </image>
+            </ImageView>
+         </graphic></Hyperlink>
       <Label layoutX="277.0" layoutY="370.0" text="Contactanos en:" textFill="#fc8d0f">
          <font>
             <Font size="16.0" />
@@ -88,7 +90,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Label fx:id="error" layoutX="38.0" layoutY="239.0" prefHeight="27.0" prefWidth="201.0" textFill="#ff2600">
+            <Label fx:id="error" layoutX="11.0" layoutY="239.0" prefHeight="27.0" prefWidth="247.0" textFill="#ff2600">
                <font>
                   <Font size="14.0" />
                </font>

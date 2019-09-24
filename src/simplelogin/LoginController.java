@@ -28,21 +28,14 @@ public class LoginController implements Initializable {
     @FXML JFXButton iniciar;
     @FXML Label error;
     @FXML AnchorPane ap;
-    @FXML Hyperlink linkedin;
+    @FXML Hyperlink linkedin = new Hyperlink("as");
     
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {     
-       
+        
     }    
-
-    public void irLinkedin(){
-        linkedin = new Hyperlink("https://teamtreehouse.com/community/need-help-please-cannot-run-main-exception-in-application-start-method");
-        
-//        getHostServices().showDocument(url);
-        
-    }
+    
+    
     public void iniciarSesion(){    
         Usuario user = new Usuario();
         
@@ -65,7 +58,7 @@ public class LoginController implements Initializable {
                  
                     stage.setResizable(false);
                     stage.getIcons().add(new Image("Assets/Img/New-firefox-logo-2019.png"));
-                    stage.setTitle("Siempre estamos para atenderte "+ read.getString(3));  
+                    stage.setTitle("Siempre estamos para atenderte "+ read.getString(3));                   
                     stage.setScene(new Scene(mp));  
                     stage.show();  
                     ap.getScene().getWindow().hide();
