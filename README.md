@@ -10,20 +10,20 @@ Intento de agregar y leer imagenes a una base de datos.
     
 # Imagenes: 
   Login funcional, abre y cierra de acuerdo al boton clickeado. (No diferencia entre tipos de Usuario)
-  ![Imagen del login](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Login.png)    
+  ![Imagen del login](https://github.com/Amonbe8080/WebStore/blob/master/Screenshots/Login.png)    
   
   Registro funcional, registra, muestra errores de acuerdo al contexto.
-   ![Imagen del registro](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Registro.png)    
+   ![Imagen del registro](https://github.com/Amonbe8080/WebStore/blob/master/Screenshots/Registro.png)    
    
   Menú funcional (Error al cerrar sesión)
-  ![Imagen del menu-usuario](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Menu-Usuario.png)    
+  ![Imagen del menu-usuario](https://github.com/Amonbe8080/WebStore/blob/master/Screenshots/Menu-Usuario.png)    
   
-  ![Imagen del menu-productos](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Menu-Productos.png) 
+  ![Imagen del menu-productos](https://github.com/Amonbe8080/WebStore/blob/master/Screenshots/Menu-Productos.png) 
    
-  ![Imagen del menu-catalogo](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Menu-Catalogo.png) 
+  ![Imagen del menu-catalogo](https://github.com/Amonbe8080/WebStore/blob/master/Screenshots/Menu-Catalogo.png) 
   
   Reporte de productos.
-  ![Imagen del reporte de productos](https://github.com/Amonbe8080/WebStore/tree/master/Screenshots/Reporte.png) 
+  ![Imagen del reporte de productos](https://github.com/Amonbe8080/WebStore/blob/master/Screenshots/Reporte.png) 
   
   
   
